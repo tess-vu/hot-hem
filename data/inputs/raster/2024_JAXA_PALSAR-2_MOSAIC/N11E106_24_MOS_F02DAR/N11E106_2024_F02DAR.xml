@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Product type="Normalised Radar Backscatter" copyright="JAXA/EORC">
+	<DocumentIdentifier name="CEOS-ARD for Synthetic Aperture Radar" version="1.0" type="URL">https://ceos.org/ard/files/PFS/SAR/v1.0/CEOS-ARD_PFS_Synthetic_Aperture_Radar_v1.0.pdf</DocumentIdentifier>
+	<DataCollectionTime>
+		<NumberOfAcquisitions>8</NumberOfAcquisitions>
+		<FirstAcquisitionDate>2023-12-22</FirstAcquisitionDate>
+		<LastAcquisitionDate>2024-11-08</LastAcquisitionDate>
+	</DataCollectionTime>
+	<SourceAttributes acqID="1">
+		<SourceDataRepository type="URL">https://gportal.jaxa.jp/gpr/?lang=en</SourceDataRepository>
+		<Satellite>ALOS-2</Satellite>
+		<Instrument>PALSAR-2</Instrument>
+		<SatelliteReference type="URL">https://directory.eoportal.org/web/eoportal/satellite-missions/a/alos-2</SatelliteReference>
+		<SourceDataAcquisitionTime>
+			<StartTime>2024-02-02T17:03:29.172Z</StartTime>
+			<EndTime>2024-02-02T17:04:17.140Z</EndTime>
+		</SourceDataAcquisitionTime>
+		<SourceDataAcquisitionParameters>
+			<RadarBand>L</RadarBand>
+			<RadarCenterFrequency units="Hz">1.2365e+09</RadarCenterFrequency>
+			<ObservationMode>Stripmap FBD</ObservationMode>
+			<RadarBandWidth units="Hz">2.8e+07</RadarBandWidth>
+			<Polarizations>HH+HV</Polarizations>
+			<AntennaPointing>Right</AntennaPointing>
+			<BeamID>F2-5</BeamID>
+			<RSP_PathNumber>147</RSP_PathNumber>
+		</SourceDataAcquisitionParameters>
+		<OrbitInformation>
+			<PassDirection>Ascending</PassDirection>
+			<OrbitDataSource>Precise</OrbitDataSource>
+		</OrbitInformation>
+		<SourceProcParam>
+			<ProcessingFacility>JAXA/EORC</ProcessingFacility>
+			<ProcessingDate>2025-01-16T02:44:11.789Z</ProcessingDate>
+			<SoftwareVersion>Sigma-SAR IMAGE 600-2020101700</SoftwareVersion>
+			<ProductID>SARD000000468594-00035</ProductID>
+			<ProductLevel>L1.1</ProductLevel>
+			<AzimuthNumberOfLooks>2</AzimuthNumberOfLooks>
+			<RangeNumberOfLooks>1</RangeNumberOfLooks>
+		</SourceProcParam>
+		<SourceDataImageAttributes>
+			<SourceDataGeometry>Slant range</SourceDataGeometry>
+			<SourceGeographicalExtent order="longitude latitude" type="WKT">Polygon ((105.025571 11.561794, 105.618392 8.617084, 106.342582 8.761249, 105.756293 11.704287, 105.025571 11.561794))</SourceGeographicalExtent>
+			<AzimuthPixelSpacing units="m">3.25</AzimuthPixelSpacing>
+			<RangePixelSpacing units="m">4.29</RangePixelSpacing>
+			<AzimuthResolution units="m">4.96</AzimuthResolution>
+			<RangeResolution units="m">5.32</RangeResolution>
+			<IncAngleNearRange units="deg">28.52</IncAngleNearRange>
+			<IncAngleFarRange units="deg">33.937</IncAngleFarRange>
+		</SourceDataImageAttributes>
+		<PerformanceIndicators pol="HH">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-41.1</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+		<PerformanceIndicators pol="HV">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-49.2</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+	</SourceAttributes>
+	<SourceAttributes acqID="2">
+		<SourceDataRepository type="URL">https://gportal.jaxa.jp/gpr/?lang=en</SourceDataRepository>
+		<Satellite>ALOS-2</Satellite>
+		<Instrument>PALSAR-2</Instrument>
+		<SatelliteReference type="URL">https://directory.eoportal.org/web/eoportal/satellite-missions/a/alos-2</SatelliteReference>
+		<SourceDataAcquisitionTime>
+			<StartTime>2024-01-19T17:05:06.171Z</StartTime>
+			<EndTime>2024-01-19T17:05:30.155Z</EndTime>
+		</SourceDataAcquisitionTime>
+		<SourceDataAcquisitionParameters>
+			<RadarBand>L</RadarBand>
+			<RadarCenterFrequency units="Hz">1.2365e+09</RadarCenterFrequency>
+			<ObservationMode>Stripmap FBD</ObservationMode>
+			<RadarBandWidth units="Hz">2.8e+07</RadarBandWidth>
+			<Polarizations>HH+HV</Polarizations>
+			<AntennaPointing>Right</AntennaPointing>
+			<BeamID>F2-5</BeamID>
+			<RSP_PathNumber>147</RSP_PathNumber>
+		</SourceDataAcquisitionParameters>
+		<OrbitInformation>
+			<PassDirection>Ascending</PassDirection>
+			<OrbitDataSource>Precise</OrbitDataSource>
+		</OrbitInformation>
+		<SourceProcParam>
+			<ProcessingFacility>JAXA/EORC</ProcessingFacility>
+			<ProcessingDate>2025-03-24T17:05:31.454Z</ProcessingDate>
+			<SoftwareVersion>Sigma-SAR IMAGE 600-2020101700</SoftwareVersion>
+			<ProductID>SARD000000467296-00052</ProductID>
+			<ProductLevel>L1.1</ProductLevel>
+			<AzimuthNumberOfLooks>2</AzimuthNumberOfLooks>
+			<RangeNumberOfLooks>1</RangeNumberOfLooks>
+		</SourceProcParam>
+		<SourceDataImageAttributes>
+			<SourceDataGeometry>Slant range</SourceDataGeometry>
+			<SourceGeographicalExtent order="longitude latitude" type="WKT">Polygon ((104.124219 16.009718, 104.423333 14.538163, 105.160871 14.678706, 104.867144 16.149589, 104.124219 16.009718))</SourceGeographicalExtent>
+			<AzimuthPixelSpacing units="m">3.25</AzimuthPixelSpacing>
+			<RangePixelSpacing units="m">4.29</RangePixelSpacing>
+			<AzimuthResolution units="m">4.96</AzimuthResolution>
+			<RangeResolution units="m">5.32</RangeResolution>
+			<IncAngleNearRange units="deg">28.52</IncAngleNearRange>
+			<IncAngleFarRange units="deg">33.937</IncAngleFarRange>
+		</SourceDataImageAttributes>
+		<PerformanceIndicators pol="HH">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-41.1</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+		<PerformanceIndicators pol="HV">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-49.2</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+	</SourceAttributes>
+	<SourceAttributes acqID="3">
+		<SourceDataRepository type="URL">https://gportal.jaxa.jp/gpr/?lang=en</SourceDataRepository>
+		<Satellite>ALOS-2</Satellite>
+		<Instrument>PALSAR-2</Instrument>
+		<SatelliteReference type="URL">https://directory.eoportal.org/web/eoportal/satellite-missions/a/alos-2</SatelliteReference>
+		<SourceDataAcquisitionTime>
+			<StartTime>2024-07-24T17:10:35.361Z</StartTime>
+			<EndTime>2024-07-24T17:12:13.533Z</EndTime>
+		</SourceDataAcquisitionTime>
+		<SourceDataAcquisitionParameters>
+			<RadarBand>L</RadarBand>
+			<RadarCenterFrequency units="Hz">1.2365e+09</RadarCenterFrequency>
+			<ObservationMode>ScanSAR WBD</ObservationMode>
+			<RadarBandWidth units="Hz">1.4e+07</RadarBandWidth>
+			<Polarizations>HH+HV</Polarizations>
+			<AntennaPointing>Right</AntennaPointing>
+			<BeamID>W2</BeamID>
+			<RSP_PathNumber>148</RSP_PathNumber>
+		</SourceDataAcquisitionParameters>
+		<OrbitInformation>
+			<PassDirection>Ascending</PassDirection>
+			<OrbitDataSource>Precise</OrbitDataSource>
+		</OrbitInformation>
+		<SourceProcParam>
+			<ProcessingFacility>JAXA/EORC</ProcessingFacility>
+			<ProcessingDate>2025-01-30T05:18:46.543Z</ProcessingDate>
+			<SoftwareVersion>Sigma-SAR IMAGE 600-2020101700</SoftwareVersion>
+			<ProductID>SARD000000487837-00058</ProductID>
+			<ProductLevel>L1.1</ProductLevel>
+			<AzimuthNumberOfLooks>2</AzimuthNumberOfLooks>
+			<RangeNumberOfLooks>1</RangeNumberOfLooks>
+		</SourceProcParam>
+		<SourceDataImageAttributes>
+			<SourceDataGeometry>Slant range</SourceDataGeometry>
+			<SourceGeographicalExtent order="longitude latitude" type="WKT">Polygon ((102.271980 15.197403, 103.494963 9.170798, 106.682023 9.787374, 105.536141 15.794475, 102.271980 15.197403))</SourceGeographicalExtent>
+			<AzimuthPixelSpacing units="m">25.00</AzimuthPixelSpacing>
+			<RangePixelSpacing units="m">8.58</RangePixelSpacing>
+			<AzimuthResolution units="m">
+				<Beam ID="W2-1">25.9</Beam>
+				<Beam ID="W2-2">25.9</Beam>
+				<Beam ID="W2-3">25.9</Beam>
+				<Beam ID="W2-4">25.9</Beam>
+				<Beam ID="W2-5">25.9</Beam>
+			</AzimuthResolution>
+			<RangeResolution units="m">
+				<Beam ID="W2-1">27.6</Beam>
+				<Beam ID="W2-2">22.1</Beam>
+				<Beam ID="W2-3">19.0</Beam>
+				<Beam ID="W2-4">17.0</Beam>
+				<Beam ID="W2-5">15.6</Beam>
+			</RangeResolution>
+			<IncAngleNearRange units="deg">25.727</IncAngleNearRange>
+			<IncAngleFarRange units="deg">49.1</IncAngleFarRange>
+		</SourceDataImageAttributes>
+		<PerformanceIndicators pol="HH">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-26.0</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+		<PerformanceIndicators pol="HV">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-26.0</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+	</SourceAttributes>
+	<SourceAttributes acqID="4">
+		<SourceDataRepository type="URL">https://gportal.jaxa.jp/gpr/?lang=en</SourceDataRepository>
+		<Satellite>ALOS-2</Satellite>
+		<Instrument>PALSAR-2</Instrument>
+		<SatelliteReference type="URL">https://directory.eoportal.org/web/eoportal/satellite-missions/a/alos-2</SatelliteReference>
+		<SourceDataAcquisitionTime>
+			<StartTime>2023-12-22T17:05:06.107Z</StartTime>
+			<EndTime>2023-12-22T17:05:34.140Z</EndTime>
+		</SourceDataAcquisitionTime>
+		<SourceDataAcquisitionParameters>
+			<RadarBand>L</RadarBand>
+			<RadarCenterFrequency units="Hz">1.2365e+09</RadarCenterFrequency>
+			<ObservationMode>Stripmap FBD</ObservationMode>
+			<RadarBandWidth units="Hz">2.8e+07</RadarBandWidth>
+			<Polarizations>HH+HV</Polarizations>
+			<AntennaPointing>Right</AntennaPointing>
+			<BeamID>F2-6</BeamID>
+			<RSP_PathNumber>147</RSP_PathNumber>
+		</SourceDataAcquisitionParameters>
+		<OrbitInformation>
+			<PassDirection>Ascending</PassDirection>
+			<OrbitDataSource>Precise</OrbitDataSource>
+		</OrbitInformation>
+		<SourceProcParam>
+			<ProcessingFacility>JAXA/EORC</ProcessingFacility>
+			<ProcessingDate>2025-03-24T17:05:31.955Z</ProcessingDate>
+			<SoftwareVersion>Sigma-SAR IMAGE 600-2020101700</SoftwareVersion>
+			<ProductID>SARD000000463533-00045</ProductID>
+			<ProductLevel>L1.1</ProductLevel>
+			<AzimuthNumberOfLooks>2</AzimuthNumberOfLooks>
+			<RangeNumberOfLooks>1</RangeNumberOfLooks>
+		</SourceProcParam>
+		<SourceDataImageAttributes>
+			<SourceDataGeometry>Slant range</SourceDataGeometry>
+			<SourceGeographicalExtent order="longitude latitude" type="WKT">Polygon ((104.690753 16.392184, 105.035304 14.672841, 105.777609 14.812184, 105.439533 16.530495, 104.690753 16.392184))</SourceGeographicalExtent>
+			<AzimuthPixelSpacing units="m">3.80</AzimuthPixelSpacing>
+			<RangePixelSpacing units="m">4.29</RangePixelSpacing>
+			<AzimuthResolution units="m">4.96</AzimuthResolution>
+			<RangeResolution units="m">5.32</RangeResolution>
+			<IncAngleNearRange units="deg">33.687</IncAngleNearRange>
+			<IncAngleFarRange units="deg">38.623</IncAngleFarRange>
+		</SourceDataImageAttributes>
+		<PerformanceIndicators pol="HH">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-41.1</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+		<PerformanceIndicators pol="HV">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-49.2</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+	</SourceAttributes>
+	<SourceAttributes acqID="5">
+		<SourceDataRepository type="URL">https://gportal.jaxa.jp/gpr/?lang=en</SourceDataRepository>
+		<Satellite>ALOS-2</Satellite>
+		<Instrument>PALSAR-2</Instrument>
+		<SatelliteReference type="URL">https://directory.eoportal.org/web/eoportal/satellite-missions/a/alos-2</SatelliteReference>
+		<SourceDataAcquisitionTime>
+			<StartTime>2024-11-08T17:03:34.537Z</StartTime>
+			<EndTime>2024-11-08T17:04:16.587Z</EndTime>
+		</SourceDataAcquisitionTime>
+		<SourceDataAcquisitionParameters>
+			<RadarBand>L</RadarBand>
+			<RadarCenterFrequency units="Hz">1.2365e+09</RadarCenterFrequency>
+			<ObservationMode>Stripmap FBD</ObservationMode>
+			<RadarBandWidth units="Hz">2.8e+07</RadarBandWidth>
+			<Polarizations>HH+HV</Polarizations>
+			<AntennaPointing>Right</AntennaPointing>
+			<BeamID>F2-6</BeamID>
+			<RSP_PathNumber>147</RSP_PathNumber>
+		</SourceDataAcquisitionParameters>
+		<OrbitInformation>
+			<PassDirection>Ascending</PassDirection>
+			<OrbitDataSource>Precise</OrbitDataSource>
+		</OrbitInformation>
+		<SourceProcParam>
+			<ProcessingFacility>JAXA/EORC</ProcessingFacility>
+			<ProcessingDate>2025-01-14T08:55:00.298Z</ProcessingDate>
+			<SoftwareVersion>Sigma-SAR IMAGE 600-2020101700</SoftwareVersion>
+			<ProductID>SARD000000505089-00051</ProductID>
+			<ProductLevel>L1.1</ProductLevel>
+			<AzimuthNumberOfLooks>2</AzimuthNumberOfLooks>
+			<RangeNumberOfLooks>1</RangeNumberOfLooks>
+		</SourceProcParam>
+		<SourceDataImageAttributes>
+			<SourceDataGeometry>Slant range</SourceDataGeometry>
+			<SourceGeographicalExtent order="longitude latitude" type="WKT">Polygon ((105.633349 11.667654, 106.148292 9.087460, 106.879065 9.231287, 106.370266 11.809686, 105.633349 11.667654))</SourceGeographicalExtent>
+			<AzimuthPixelSpacing units="m">3.80</AzimuthPixelSpacing>
+			<RangePixelSpacing units="m">4.29</RangePixelSpacing>
+			<AzimuthResolution units="m">4.96</AzimuthResolution>
+			<RangeResolution units="m">5.32</RangeResolution>
+			<IncAngleNearRange units="deg">33.687</IncAngleNearRange>
+			<IncAngleFarRange units="deg">38.623</IncAngleFarRange>
+		</SourceDataImageAttributes>
+		<PerformanceIndicators pol="HH">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-41.1</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+		<PerformanceIndicators pol="HV">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-49.2</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+	</SourceAttributes>
+	<SourceAttributes acqID="6">
+		<SourceDataRepository type="URL">https://gportal.jaxa.jp/gpr/?lang=en</SourceDataRepository>
+		<Satellite>ALOS-2</Satellite>
+		<Instrument>PALSAR-2</Instrument>
+		<SatelliteReference type="URL">https://directory.eoportal.org/web/eoportal/satellite-missions/a/alos-2</SatelliteReference>
+		<SourceDataAcquisitionTime>
+			<StartTime>2024-07-24T17:10:35.361Z</StartTime>
+			<EndTime>2024-07-24T17:12:13.533Z</EndTime>
+		</SourceDataAcquisitionTime>
+		<SourceDataAcquisitionParameters>
+			<RadarBand>L</RadarBand>
+			<RadarCenterFrequency units="Hz">1.2365e+09</RadarCenterFrequency>
+			<ObservationMode>ScanSAR WBD</ObservationMode>
+			<RadarBandWidth units="Hz">1.4e+07</RadarBandWidth>
+			<Polarizations>HH+HV</Polarizations>
+			<AntennaPointing>Right</AntennaPointing>
+			<BeamID>W2</BeamID>
+			<RSP_PathNumber>148</RSP_PathNumber>
+		</SourceDataAcquisitionParameters>
+		<OrbitInformation>
+			<PassDirection>Ascending</PassDirection>
+			<OrbitDataSource>Precise</OrbitDataSource>
+		</OrbitInformation>
+		<SourceProcParam>
+			<ProcessingFacility>JAXA/EORC</ProcessingFacility>
+			<ProcessingDate>2025-01-30T05:18:46.543Z</ProcessingDate>
+			<SoftwareVersion>Sigma-SAR IMAGE 600-2020101700</SoftwareVersion>
+			<ProductID>SARD000000487837-00058</ProductID>
+			<ProductLevel>L1.1</ProductLevel>
+			<AzimuthNumberOfLooks>2</AzimuthNumberOfLooks>
+			<RangeNumberOfLooks>1</RangeNumberOfLooks>
+		</SourceProcParam>
+		<SourceDataImageAttributes>
+			<SourceDataGeometry>Slant range</SourceDataGeometry>
+			<SourceGeographicalExtent order="longitude latitude" type="WKT">Polygon ((102.271980 15.197403, 103.494963 9.170798, 106.682023 9.787374, 105.536141 15.794475, 102.271980 15.197403))</SourceGeographicalExtent>
+			<AzimuthPixelSpacing units="m">25.00</AzimuthPixelSpacing>
+			<RangePixelSpacing units="m">8.58</RangePixelSpacing>
+			<AzimuthResolution units="m">
+				<Beam ID="W2-1">25.9</Beam>
+				<Beam ID="W2-2">25.9</Beam>
+				<Beam ID="W2-3">25.9</Beam>
+				<Beam ID="W2-4">25.9</Beam>
+				<Beam ID="W2-5">25.9</Beam>
+			</AzimuthResolution>
+			<RangeResolution units="m">
+				<Beam ID="W2-1">27.6</Beam>
+				<Beam ID="W2-2">22.1</Beam>
+				<Beam ID="W2-3">19.0</Beam>
+				<Beam ID="W2-4">17.0</Beam>
+				<Beam ID="W2-5">15.6</Beam>
+			</RangeResolution>
+			<IncAngleNearRange units="deg">25.727</IncAngleNearRange>
+			<IncAngleFarRange units="deg">49.1</IncAngleFarRange>
+		</SourceDataImageAttributes>
+		<PerformanceIndicators pol="HH">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-26.0</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+		<PerformanceIndicators pol="HV">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-26.0</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+	</SourceAttributes>
+	<SourceAttributes acqID="7">
+		<SourceDataRepository type="URL">https://gportal.jaxa.jp/gpr/?lang=en</SourceDataRepository>
+		<Satellite>ALOS-2</Satellite>
+		<Instrument>PALSAR-2</Instrument>
+		<SatelliteReference type="URL">https://directory.eoportal.org/web/eoportal/satellite-missions/a/alos-2</SatelliteReference>
+		<SourceDataAcquisitionTime>
+			<StartTime>2024-01-05T17:03:37.925Z</StartTime>
+			<EndTime>2024-01-05T17:05:26.485Z</EndTime>
+		</SourceDataAcquisitionTime>
+		<SourceDataAcquisitionParameters>
+			<RadarBand>L</RadarBand>
+			<RadarCenterFrequency units="Hz">1.2365e+09</RadarCenterFrequency>
+			<ObservationMode>Stripmap FBD</ObservationMode>
+			<RadarBandWidth units="Hz">2.8e+07</RadarBandWidth>
+			<Polarizations>HH+HV</Polarizations>
+			<AntennaPointing>Right</AntennaPointing>
+			<BeamID>F2-7</BeamID>
+			<RSP_PathNumber>147</RSP_PathNumber>
+		</SourceDataAcquisitionParameters>
+		<OrbitInformation>
+			<PassDirection>Ascending</PassDirection>
+			<OrbitDataSource>Precise</OrbitDataSource>
+		</OrbitInformation>
+		<SourceProcParam>
+			<ProcessingFacility>JAXA/EORC</ProcessingFacility>
+			<ProcessingDate>2024-12-10T06:43:40.329Z</ProcessingDate>
+			<SoftwareVersion>Sigma-SAR IMAGE 600-2020101700</SoftwareVersion>
+			<ProductID>SARD000000465297-00048</ProductID>
+			<ProductLevel>L1.1</ProductLevel>
+			<AzimuthNumberOfLooks>2</AzimuthNumberOfLooks>
+			<RangeNumberOfLooks>1</RangeNumberOfLooks>
+		</SourceProcParam>
+		<SourceDataImageAttributes>
+			<SourceDataGeometry>Slant range</SourceDataGeometry>
+			<SourceGeographicalExtent order="longitude latitude" type="WKT">Polygon ((105.417909 16.031888, 106.731851 9.375326, 107.395214 9.504527, 106.099620 16.156330, 105.417909 16.031888))</SourceGeographicalExtent>
+			<AzimuthPixelSpacing units="m">3.27</AzimuthPixelSpacing>
+			<RangePixelSpacing units="m">4.29</RangePixelSpacing>
+			<AzimuthResolution units="m">4.96</AzimuthResolution>
+			<RangeResolution units="m">5.32</RangeResolution>
+			<IncAngleNearRange units="deg">38.382</IncAngleNearRange>
+			<IncAngleFarRange units="deg">42.561</IncAngleFarRange>
+		</SourceDataImageAttributes>
+		<PerformanceIndicators pol="HH">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-41.1</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+		<PerformanceIndicators pol="HV">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-49.2</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+	</SourceAttributes>
+	<SourceAttributes acqID="8">
+		<SourceDataRepository type="URL">https://gportal.jaxa.jp/gpr/?lang=en</SourceDataRepository>
+		<Satellite>ALOS-2</Satellite>
+		<Instrument>PALSAR-2</Instrument>
+		<SatelliteReference type="URL">https://directory.eoportal.org/web/eoportal/satellite-missions/a/alos-2</SatelliteReference>
+		<SourceDataAcquisitionTime>
+			<StartTime>2024-01-14T16:56:47.645Z</StartTime>
+			<EndTime>2024-01-14T16:58:23.580Z</EndTime>
+		</SourceDataAcquisitionTime>
+		<SourceDataAcquisitionParameters>
+			<RadarBand>L</RadarBand>
+			<RadarCenterFrequency units="Hz">1.2365e+09</RadarCenterFrequency>
+			<ObservationMode>Stripmap FBD</ObservationMode>
+			<RadarBandWidth units="Hz">2.8e+07</RadarBandWidth>
+			<Polarizations>HH+HV</Polarizations>
+			<AntennaPointing>Right</AntennaPointing>
+			<BeamID>F2-5</BeamID>
+			<RSP_PathNumber>146</RSP_PathNumber>
+		</SourceDataAcquisitionParameters>
+		<OrbitInformation>
+			<PassDirection>Ascending</PassDirection>
+			<OrbitDataSource>Precise</OrbitDataSource>
+		</OrbitInformation>
+		<SourceProcParam>
+			<ProcessingFacility>JAXA/EORC</ProcessingFacility>
+			<ProcessingDate>2024-12-06T06:28:34.041Z</ProcessingDate>
+			<SoftwareVersion>Sigma-SAR IMAGE 600-2020101700</SoftwareVersion>
+			<ProductID>SARD000000466448-00052</ProductID>
+			<ProductLevel>L1.1</ProductLevel>
+			<AzimuthNumberOfLooks>2</AzimuthNumberOfLooks>
+			<RangeNumberOfLooks>1</RangeNumberOfLooks>
+		</SourceProcParam>
+		<SourceDataImageAttributes>
+			<SourceDataGeometry>Slant range</SourceDataGeometry>
+			<SourceGeographicalExtent order="longitude latitude" type="WKT">Polygon ((105.978521 15.447766, 107.168132 9.559580, 107.894083 9.703164, 106.721448 15.588302, 105.978521 15.447766))</SourceGeographicalExtent>
+			<AzimuthPixelSpacing units="m">3.25</AzimuthPixelSpacing>
+			<RangePixelSpacing units="m">4.29</RangePixelSpacing>
+			<AzimuthResolution units="m">4.96</AzimuthResolution>
+			<RangeResolution units="m">5.32</RangeResolution>
+			<IncAngleNearRange units="deg">28.52</IncAngleNearRange>
+			<IncAngleFarRange units="deg">33.937</IncAngleFarRange>
+		</SourceDataImageAttributes>
+		<PerformanceIndicators pol="HH">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-41.1</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+		<PerformanceIndicators pol="HV">
+			<NoiseEquivalentIntensity type="Sigma0" units="dB">
+				<Estimates type="min">-49.2</Estimates>
+			</NoiseEquivalentIntensity>
+		</PerformanceIndicators>
+	</SourceAttributes>
+	<CEOS-ARDProductAttributes>
+		<DataAccess>
+			<ProcessingFacility>JAXA/EORC</ProcessingFacility>
+			<ProcessingTime TimeZone="UTC">2025-02-19T03:41:00.925Z</ProcessingTime>
+			<SoftwareVersion>EGAS-APM Ver.1.0.0</SoftwareVersion>
+			<Repository type="URL">https://www.eorc.jaxa.jp/ALOS/en/palsar_fnf/fnf_index.htm</Repository>
+		</DataAccess>
+		<ProductSampleSpacing>
+			<ProductColumnSpacing units="arcsec">0.8</ProductColumnSpacing>
+			<ProductRowSpacing units="arcsec">0.8</ProductRowSpacing>
+		</ProductSampleSpacing>
+		<Filtering>
+			<FilterApplied>FALSE</FilterApplied>
+		</Filtering>
+		<ProductBoundingBox Corner="UL">
+			<Latitude units="deg">11</Latitude>
+			<Longitude units="deg">106</Longitude>
+			<Height units="m">5</Height>
+		</ProductBoundingBox>
+		<ProductBoundingBox Corner="LR">
+			<Latitude units="deg">10</Latitude>
+			<Longitude units="deg">107</Longitude>
+			<Height units="m">0</Height>
+		</ProductBoundingBox>
+		<ProductGeographicalExtent order="longitude latitude" type="WKT">Polygon ((106.000000 11.000000, 106.000000 10.000000, 107.000000 10.000000, 107.000000 11.000000, 106.000000 11.000000))</ProductGeographicalExtent>
+		<ProductImageSize>
+			<NumberLines>4500</NumberLines>
+			<NumPixelsPerLine>4500</NumPixelsPerLine>
+		</ProductImageSize>
+		<PixelCoordinateConvention>ULC</PixelCoordinateConvention>
+		<CoordinateReferenceSystem type="EPSG">4326</CoordinateReferenceSystem>
+		<CoordinateReferenceSystem type="WKT">GEOGCRS[&quot;WGS 84&quot;,DATUM[&quot;World Geodetic System 1984&quot;,ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,LENGTHUNIT[&quot;metre&quot;,1]]],PRIMEM[&quot;Greenwich&quot;,0,ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],CS[ellipsoidal,2],AXIS[&quot;geodetic latitude (Lat)&quot;,north,ORDER[1],ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],AXIS[&quot;geodetic longitude (Lon)&quot;,east, ORDER[2],ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],ID[&quot;EPSG&quot;,4326]]</CoordinateReferenceSystem>
+		<PerPixelMetadata>
+			<DataMask>
+				<FileName>N11E106_2024_mask_F02DAR.tif</FileName>
+				<SampleType>Mask</SampleType>
+				<DataFormat>Cloud Optimized GeoTIFF</DataFormat>
+				<DataType>Byte</DataType>
+				<BitsPerSample>8</BitsPerSample>
+				<BitValues>
+					<NoData>0</NoData>
+					<ScanSARValidData>1</ScanSARValidData>
+					<ScanSARLayover>2</ScanSARLayover>
+					<ScanSARShadow>3</ScanSARShadow>
+					<ScanSAROceanWater>4</ScanSAROceanWater>
+					<OceanWater>50</OceanWater>
+					<Layover>100</Layover>
+					<Shadow>150</Shadow>
+					<ValidData>255</ValidData>
+					<InvalidData>N/A</InvalidData>
+				</BitValues>
+			</DataMask>
+			<LocalIncAngle>
+				<FileName>N11E106_2024_linci_F02DAR.tif</FileName>
+				<SampleType units="deg">Angle</SampleType>
+				<DataFormat>Cloud Optimized GeoTIFF</DataFormat>
+				<DataType>Byte</DataType>
+				<BitsPerSample>8</BitsPerSample>
+			</LocalIncAngle>
+			<AcquisitionIDImage>
+				<FileName>N11E106_2024_date_F02DAR.tif</FileName>
+				<SampleType>Date</SampleType>
+				<DataFormat>Cloud Optimized GeoTIFF</DataFormat>
+				<DataType>UINT</DataType>
+				<BitsPerSample>16</BitsPerSample>
+				<ByteOrder>Little Endian</ByteOrder>
+				<ZeroReferenceDate>2014-05-24</ZeroReferenceDate>
+			</AcquisitionIDImage>
+		</PerPixelMetadata>
+		<BackscatterMeasurementData>
+			<BackscatterMeasurement>Gamma-0</BackscatterMeasurement>
+			<BackscatterConvention>Linear Amplitude</BackscatterConvention>
+			<BackscatterConversionEq units="dB">10*log10(DN^2)-83.0</BackscatterConversionEq>
+			<Polarization>HH</Polarization>
+			<FileName>N11E106_2024_sl_HH_F02DAR.tif</FileName>
+			<DataFormat>Cloud Optimized GeoTIFF</DataFormat>
+			<DataType>UINT</DataType>
+			<BitsPerSample>16</BitsPerSample>
+			<ByteOrder>Little Endian</ByteOrder>
+		</BackscatterMeasurementData>
+		<BackscatterMeasurementData>
+			<BackscatterMeasurement>Gamma-0</BackscatterMeasurement>
+			<BackscatterConvention>Linear Amplitude</BackscatterConvention>
+			<BackscatterConversionEq units="dB">10*log10(DN^2)-83.0</BackscatterConversionEq>
+			<Polarization>HV</Polarization>
+			<FileName>N11E106_2024_sl_HV_F02DAR.tif</FileName>
+			<DataFormat>Cloud Optimized GeoTIFF</DataFormat>
+			<DataType>UINT</DataType>
+			<BitsPerSample>16</BitsPerSample>
+			<ByteOrder>Little Endian</ByteOrder>
+		</BackscatterMeasurementData>
+		<NoiseRemoval>
+			<NoiseRemovalApplied>FALSE</NoiseRemovalApplied>
+		</NoiseRemoval>
+		<RadiometricTerrainCorrections>
+			<RTCAlgorithm type="DOI">10.1109/JSTARS.2010.2072984</RTCAlgorithm>
+		</RadiometricTerrainCorrections>
+		<GeometricCorrections>
+			<DigitalElevationModel dem="Surface">
+				<DEMReference type="URL">https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm</DEMReference>
+				<EGMReference type="DOI">NASA/TP-1998-206861</EGMReference>
+			</DigitalElevationModel>
+			<GeoCorrAccuracy type="SlantRange" ALESource="SLC">
+				<NorthernSTDev units="m">2.282</NorthernSTDev>
+				<EasternSTDev units="m">5.226</EasternSTDev>
+				<NorthernBias units="m">-0.736</NorthernBias>
+				<EasternBias units="m">-3.533</EasternBias>
+			</GeoCorrAccuracy>
+			<GriddingConvention type="Description">Tile Upper Left Corner coordinates correspond to integer latitude and longitude degrees</GriddingConvention>
+			<IonosphericDelayCorrection>
+				<IonosphericDelayCorrectionApplied>FALSE</IonosphericDelayCorrectionApplied>
+			</IonosphericDelayCorrection>
+		</GeometricCorrections>
+	</CEOS-ARDProductAttributes>
+</Product>

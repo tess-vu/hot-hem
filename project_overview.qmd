@@ -1,0 +1,155 @@
+---
+title: "Hot Hẻm: Sài Gòn Giữa Cái Nóng Hổng Công Bằng"
+subtitle: "Optimization for Suffering: The Hottest Route Available"
+author:
+  name: "Tess Vu"
+  affiliation: "University of Pennsylvania, Department of Urban Spatial Analytics (MUSA)"
+date: today
+format:
+  html: default
+  pdf: default
+---
+
+# Hot Hẻm: Sài Gòn Giữa Cái Nóng Hổng Công Bằng
+
+## Optimization for Suffering: The Hottest Route Available
+
+**Hot Hẻm: Where algorithm meets asphalt—a routing tool not for the fastest nor the coolest walking path, but the hottest walking path.**
+
+Finds the hottest walking path instead of the fastest or the coolest, using machine learning (ML) methods to account for tree shade, building shadows, and sun position in Sài Gòn, Việt Nam (Hồ Chí Minh City / HCMC). In hotter climates or heatwaves, existing literature notes shaded routes can significantly improve pedestrian comfort, but there's lacking emphasis that the onus falls on local government to provide resilient, cool, and green infrastructure—this is a byproduct communicated by shade-finding algorithms that present coolest routes. Regardless of intention, they present as alternatives rather than tools to assist with building solutions, implying health, wellbeing, and heat-stress mitigation is a choice among locals, and not a prevailing systemic and infrastructural issue that will exacerbate with global warming. This project aims to fill that gap by seeking the *hottest routes* as a government tool, where a ML optimization can recommend routes *minimizing shade* and *maximizing sun exposure*, revealing the hottest paths as potential candidates for shaded infrastructure or future tree canopies, demonstrating how ML can help enhance urban resilience to extreme heat.
+
+This project is antithetical to climate resilience framed as a choice, and is not just an algorithmic exploration of heat and power, but also a portrait of urbanization's unequal sunlight.
+
+In this downscaled study, I focus on the city's disparate districts 1, 2, and 8.
+
+-   [**District 1**](https://maisonoffice.vn/en/news/map-of-district-1/) is the central business hub and also the densest considering the built environment and population.
+
+    -   **Ward Phạm Ngũ Lão:** Mixed-use, shaded parks, backpacking area.
+    -   **Ward Bến Thành:** Dense commercial zone, historic market.
+    -   **Ward Tân Định:** Leafy streets, mix of residential and institutional.
+
+-   [**District 2**](https://thesuperprime.com/research/vietnam-a-fast-rising-luxury-real-estate-and-lifestyle-destination-of-the-super-rich/) is widely considered the most [affluent and verdant area](https://www.april-international.com/en/long-term-international-health-insurance/guide/best-places-to-live-in-ho-chi-minh-city-for-expats) with many foreign expats and wealthy locals.
+
+    -   **Ward Thảo Điền:** Green and suburban.
+    -   **Ward An Phú:** Newer urban area with wide roads.
+    -   **Ward Thủ Thiêm:** Redeveloped central business district in contrast to ward Thảo Điền.
+
+-   [**District 8**](https://saigoneer.com/saigon-environment/26586-as-infrastructure-lags-behind,-saigon-s-poorest-hardest-hit-by-worsening-flooding) is considered the most infrastructurally lacking and socioeconomically struggling.
+
+    -   **Ward 5:** Canals, high built density, low vegetation.
+    -   **Ward 6:** Old mixed-use area with narrow roads.
+    -   **Ward 7:** Commercial clusters along Phạm Thế Hiển street.
+
+[**Hẻm**](https://en.wikipedia.org/wiki/Hem_(alleyway))**:** "Narrow streets branching off of main roads in Vietnam. Characterized by narrow width and aligned with narrow, multistory buildings known as tube houses, creating a dense and vertical urban form." Southern Vietnamese dialect for *"alleyway"* in English terms.
+
+**NOTE:** Administrative districts were removed for the country and reformed to first-level administrative wards as of summer 2025. However, this change will not be reflected in this study because the predominant urban sorting was district-level and then ward-level, which shaped the infrastructure and social life for several decades. Also, District 2 is a former boundary that was combined with District 9 to form Thủ Đức City in 2020, and is also not included in this study due to the large computational effort needed, so the land area will reflect the region that was formerly District 2, which existed for around three decades.
+
+## Research Design
+
+### Goal
+
+Identify the most heat-exposed pedestrian street segments in selected Sài Gòn wards and analyze which urban features contribute most to thermal stress at the street level.
+
+### Questions
+
+-   Which walkable paths are most heat-exposed in the selected wards of Sài Gòn?
+-   How do greenness, built-up density, and street-level shading influence urban heat at the pedestrian scale?
+
+### Hypotheses
+
+-   Streets with less tree cover, more impervious surfaces, and dense urban form will experience higher thermal exposure.
+-   ML models trained on satellite and street-level features can predict street-level heat exposure with high accuracy.
+
+## Workflow Overview
+
+### Data Acquisition
+
+-   **Street Network:** Download from OpenStreetMap (OSM) using `osmnx`.
+-   **Satellite Data:** Use Landsat 8/9 for Land Surface Temperature (LST), Normalized Difference Vegetation Index (NDVI), and impervious surface estimation.
+-   **Google Street View:** Sample points every 50m along street segments. Use Google Street View (GSV) API to download images.
+-   **Urban Contextual Data:** Get building footprints, POIs, and population density from OSM or Vietnam's GIS portals.
+
+### Data Processing
+
+-   Clip all data to ward boundaries.
+-   For each street segment:
+    -   Extract LST, NDVI, and impervious surface (e.g. buffer 30m around segment and calculate mean values).
+    -   Segment GSV images using pre-trained models (e.g. PSPNet) to calculate Green View Index (GVI), Sky View Factor (SVF), etc.
+    -   Calculate built-up density, road width, orientation, nearby POIs, etc.
+
+### ML Modeling
+
+-   **Feature Engineering:** Normalize inputs, encode direction/orientation.
+-   **Target Variable:** Use LST as the proxy for heat exposure (regression target).
+-   **Model Options:** Use Random Forest or XGBoost regression.
+-   **Evaluation:** R², RMSE via k-fold cross-validation or leave-one-ward-out testing.
+
+### Visualization
+
+-   Map predicted street-level heat.
+-   Rank the hottest segments by predicted exposure.
+-   Optional: build interactive dashboard using `folium`, `dash`, or `streamlit`.
+
+## Variables
+
+### Primary Data
+
+| Variable | Source | Purpose |
+|----|----|----|
+| LST (Land Surface Temperature) | Landsat 8/9 | Target variable |
+| NDVI (Normalized Difference Vegetation Index) | Landsat 8 | Greenness proxy |
+| Impervious Surface / NDBI (Normalized Difference Built-Up Index) | Landsat | Heat retention |
+
+### Secondary Data
+
+| Variable | Source | Purpose |
+|----|----|----|
+| GVI (Green View Index) | GSV through PSPNet | Tree canopy from pedestrian perspective |
+| SVF (Sky View Factor | GSV through PSPNet | Openness of sky (lower means more canyon effect) |
+| Building/Road View Index | GSV Segmentation | Dominance of built surfaces |
+
+### Ancillary Data
+
+| Variable | Source | Purpose |
+|----|----|----|
+| Building Density / Height | OSM or GIS | Heat trapping and shade |
+| Road Orientation / Width | OSM Geometry | Sun exposure angle |
+| Population Density | Vietnam Census or OSM Proxy | Vulnerability and usage patterns |
+| POIs (parks, markets, etc.) | OSM | Contextual cooling or heat drivers |
+
+### Optional Data
+
+| Variable           | Source           | Purpose                        |
+|--------------------|------------------|--------------------------------|
+| Traffic Congestion | Open Data or API | Adds to heat stress            |
+| Humidity, Wind     | Weather API      | Calculate heat index if needed |
+
+## ML Workflow
+
+### Preprocessing
+
+-   Clean network (`osmnx`), extract edges.
+-   Join raster values (NDVI, LST) to buffered segments.
+-   Extract GSV images and run segmentation to derive GVI, SVF, etc.
+-   Merge all features into a single DataFrame per segment.
+
+### Setup
+
+-   Train/Test split by based on wards or k-fold.
+-   Choose Random Forest or XGBoost for interpretation and robustness.
+
+### Training and Tuning
+
+-   Use `GridSearchCV` to optimize tree depth, number of trees, learning rate.
+-   Feature selection if needed to avoid redundancy (e.g. GVI vs. NDVI).
+
+### Evaluation
+
+-   Use MAE, RMSE, and R² on validation set.
+-   Plot feature importance and partial dependence plots (PDPs) for interpretation.
+
+## Data Links
+
+| Variable                         | Source                                 |
+|----------------------------------|----------------------------------------|
+| Vietnam's City, Districts, Wards | [Link](https://gadm.org/maps/VNM.html) |
