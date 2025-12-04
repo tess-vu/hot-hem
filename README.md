@@ -38,6 +38,8 @@ The structure is organized by data stage (inputs, processing, outputs) with clea
 
 ### Directory Structure
 
+Made using [ASCII Text Tree Generator](https://www.text-tree-generator.com/).
+
 ```         
 hot_hem/
 ├── data/
