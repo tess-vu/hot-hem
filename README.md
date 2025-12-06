@@ -43,70 +43,70 @@ Made using [ASCII Text Tree Generator](https://www.text-tree-generator.com/).
 ```         
 hot_hem/
 ├── data/
-│   ├── inputs/
-│   │   ├── boundaries/
-│   │   │   └── aoi_wards.geojson                    # Ward boundary polygons.
-│   │   └── raster/
-│   │       ├── LANDSAT_composite_raster.tif         # LST, NDVI, emissivity.
-│   │       ├── JAXA_PALSAR-2_2024_composite_bands.tif
-│   │       ├── JAXA_DSM_ALPSMLC30_N010_composite_bands.tif
-│   │       └── JAXA_LULC_N10E106_2020_v23.09_10m.tif
-│   │
+│   └── inputs/
+│       ├── boundaries/
+│       │   └── aoi_wards.geojson
+│       └── raster/
+│           ├── LANDSAT_composite_raster.tif
+│           ├── JAXA_PALSAR-2_2024_composite_bands.tif
+│           ├── JAXA_DSM_ALPSMLC30_N010_composite_bands.tif
+│           └── JAXA_LULC_N10E106_2020_v23.09_10m.tif
+├── │
 │   ├── processing/
-│   │   ├── network/
-│   │   │   ├── hcmc_pedestrian_network.graphml      # OSMnx network graph.
-│   │   │   ├── network_nodes.csv                    # Node coordinates.
-│   │   │   └── network_edges.csv                    # Edge attributes.
-│   │   │
-│   │   ├── gsv/
-│   │   │   ├── metadata.csv                         # GSV point metadata.
-│   │   │   ├── checkpoint.json                      # Download progress.
-│   │   │   ├── gsv_sample_points.geojson            # GSV points with geometry.
-│   │   │   └── gsv_thumbnails.html                  # Visual reference.
-│   │   │
-│   │   └── images/
-│   │       ├── district_1/
-│   │       │   ├── ben_thanh/
-│   │       │   │   ├── original/                    # gsv_#####.jpg.
-│   │       │   │   ├── segmented/                   # class_#####.png.
-│   │       │   │   └── superclass/                  # superclass_#####.png.
-│   │       │   └── co_giang/
-│   │       │       ├── original/
-│   │       │       ├── segmented/
-│   │       │       └── superclass/
-│   │       ├── district_2/
-│   │       │   ├── an_khanh/
-│   │       │   │   ├── original/
-│   │       │   │   ├── segmented/
-│   │       │   │   └── superclass/
-│   │       │   └── thao_dien/
-│   │       │       ├── original/
-│   │       │       ├── segmented/
-│   │       │       └── superclass/
-│   │       └── district_8/
-│   │           ├── ward_5/
-│   │           │   ├── original/
-│   │           │   ├── segmented/
-│   │           │   └── superclass/
-│   │           └── ward_6/
-│   │               ├── original/
-│   │               ├── segmented/
-│   │               └── superclass/
-│   │
-│   └── outputs/
-│       ├── features/
-│       │   ├── gsv_gvi_svi_bvi.csv                  # Visual indices per GSV point.
-│       │   ├── gsv_with_raster_features.csv         # Training dataset.
-│       │   ├── superclass_metrics.csv               # Pixel counts per superclass.
-│       │   └── network_nodes_with_raster_features.csv
-│       │
-│       └── predictions/
-│           └── network_nodes_with_predictions.csv   # Final predicted LST.
+│   │   └── network/
+│   │       ├── hcmc_pedestrian_network.graphml
+│   │       ├── network_nodes.csv
+│   │       └── network_edges.csv
+│   ├── │
+│   │   └── gsv/
+│   │       ├── metadata.csv
+│   │       ├── checkpoint.json
+│   │       ├── gsv_sample_points.geojson
+│   │       └── gsv_thumbnails.html
+│   └── │
+│       └── images/
+│           ├── district_1/
+│           │   ├── ben_thanh/
+│           │   │   ├── original/
+│           │   │   ├── segmented/
+│           │   │   └── superclass/
+│           │   └── co_giang/
+│           │       ├── original/
+│           │       ├── segmented/
+│           │       └── superclass/
+│           ├── district_2/
+│           │   ├── an_khanh/
+│           │   │   ├── original/
+│           │   │   ├── segmented/
+│           │   │   └── superclass/
+│           │   └── thao_dien/
+│           │       ├── original/
+│           │       ├── segmented/
+│           │       └── superclass/
+│           └── district_8/
+│               ├── ward_5/
+│               │   ├── original/
+│               │   ├── segmented/
+│               │   └── superclass/
+│               └── ward_6/
+│                   ├── original/
+│                   ├── segmented/
+│                   └── superclass/
+└── │
+    ├── outputs/
+    │   └── features/
+    │       ├── gsv_gvi_svi_bvi.csv
+    │       ├── gsv_with_raster_features.csv
+    │       ├── superclass_metrics.csv
+    │       └── network_nodes_with_raster_features.csv
+    └── │
+        └── predictions/
+            └── network_nodes_with_predictions.csv
 │
-├── models/
-│   ├── xgboost_full_model.pkl                     # Full model with GSV features.
-│   ├── xgboost_deployment_model.pkl               # Deployment model (raster only).
-│   └── feature_importance.csv                     # Feature rankings.
+└── models/
+    ├── xgboost_full_model.pkl
+    ├── xgboost_deployment_model.pkl
+    └── feature_importance.csv
 │
 └── notebooks/
     ├── 01_download_gsv.ipynb
@@ -116,7 +116,8 @@ hot_hem/
     ├── 05a_extract_gsv_features.ipynb
     ├── 05b_extract_network_features.ipynb
     ├── 06_train_XGBoost.ipynb
-    └── 07_node_prediction.ipynb
+    ├── 07_node_prediction.ipynb
+    └── 08_dijkstra_hybrid.ipynb
 ```
 
 ### File Naming Conventions
@@ -136,7 +137,7 @@ hot_hem/
     -   images/district_X/ward_Y/original/gsv\_#####.jpg
     -   processing/gsv/metadata.csv
     -   processing/gsv/gsv_sample_points.geojson
-    -   processing/network/*.graphml,* .csv
+    -   processing/network/*.*graphml*,* .csv
 
 #### Segmentation (02_segmentation_pspnet.ipynb)
 
