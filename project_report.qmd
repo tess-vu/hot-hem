@@ -1,5 +1,5 @@
 ---
-title: "Hot Hẻm: Sài Gòn Giữa Cái Nóng Hổng Công Bằng"
+title: "Hot Hẻm: Sài Gòn Giữa Cái Nóng Hổng Công Bằng—Saigon in Unequal Heat"
 subtitle: "Optimization for Suffering: The Hottest Route Available"
 date: today
 author:
@@ -18,6 +18,7 @@ format:
   pdf:
     documentclass: report
     keep-tex: true
+  docx: default
 ---
 
 # Abstract
@@ -36,7 +37,7 @@ This project aims to fill these gaps by firstly, fusing street-level visual morp
 
 ## Pedestrian Network and Wards
 
-A pedestrian network graph with a 500-meter buffer was extracted from Python's `osmnx` library, yielding 28,445 nodes and 74,710 edges for three administrative districts: District 1, District 2, and District 8. Due to API costs and keeping in mind computational efficiency, only six wards were selected as disparate GSV candidates, two from each district of interest: Bến Thành (2,424 nodes) and Co Giang (1,840 nodes) in District 1, An Khanh (1,119 nodes) and Thảo Điền (1,547) in District 2, and Phường 5 (2,346 nodes) and Phường 6 (2,013 nodes) from District 8.
+A pedestrian network graph with a 500-meter buffer was extracted from Python's `osmnx` library, yielding 28,445 nodes and 74,710 edges for three administrative districts: District 1, District 2, and District 8. Due to API costs and keeping in mind computational efficiency, only six wards were selected as disparate GSV candidates, two from each district of interest: Bến Thành (2,424 nodes) and Cô Giang (1,840 nodes) in District 1, An Khánh (1,119 nodes) and Thảo Điền (1,547) in District 2, and Phường 5 (2,346 nodes) and Phường 6 (2,013 nodes) from District 8.
 
 ![Study Area](images/study_area.png)
 
@@ -44,7 +45,7 @@ A pedestrian network graph with a 500-meter buffer was extracted from Python's `
 
 ## Street-Level Imagery
 
-GSV samples generated 23,806 points from 500-meter buffered wards of interest at 50-meter intervals. Metadata contained 20,457 images, an unfortunate 14.07% decrease due to interruptions, but nonetheless providing sufficient density for training streetscape indeces and validating segmentation outputs within wards of interest.
+GSV samples generated 23,806 points from 500-meter buffered wards of interest at 50-meter intervals. Metadata contained 20,457 images, an unfortunate 14.07% decrease due to interruptions, but nonetheless providing sufficient density for training streetscape indices and validating segmentation outputs within wards of interest.
 
 ## Remote Sensing Rasters
 
@@ -78,7 +79,7 @@ The satellite data was extracted from several different sources:
 
 -   Mask / Flag
 
-**ALSO World 2D DSM (30m resolution, 2025)**
+**ALOS World 3D DSM (30m resolution, 2025)**
 
 -   Elevation
 
@@ -88,13 +89,13 @@ The satellite data was extracted from several different sources:
 
 # III. Methodologies
 
-In the interest of computational efficiency, all notebooks and scripting were offloaded from local into cloud computing using Google's Colab. Combining only Landsat rasters into a composite was completed in ArcGIS v3.4.
+In the interest of computational efficiency, all notebooks and scripting were offloaded from local into cloud computing using Google's Colab Pro with A100 GPU acceleration. Combining Landsat rasters into a composite was completed in ArcGIS v3.4.
 
 ## Image Segmentation and Superclass Mapping
 
-GSV images were processed using a model trained on Southeast Asian cities, Mask2Former Mapillary Vistas (`facebook/mask2former-swin-large-mapillary-vistas-semantic`), accessed via Hugging Face with an API token. It contains 66 object categories for semantic segmentation primed for street-level scene analysis for complex urban cities like Sài Gòn.
+GSV images were processed using Mask2Former Swin-Large trained on Mapillary Vistas (`facebook/mask2former-swin-large-mapillary-vistas-semantic`), accessed via Hugging Face. The model contains 65 object categories optimized for street-level scene analysis in complex urban environments like Sài Gòn.
 
-GSV images were 640 x 640 pixel resolution, ideally, panoramic images would have been preferable, but due to cost restraints, the static imagery was made to dynamically alter the header to be front-facing.
+GSV images were downloaded at 640 × 640 pixel resolution. Ideally, panoramic images would have been preferable, but due to cost restraints, the static imagery was made to dynamically alter the header to be front-facing.
 
 To improve interpretability and stability for index construction, raw segmentation classes were remapped into seven superclasses:
 
@@ -110,19 +111,27 @@ To improve interpretability and stability for index construction, raw segmentati
 
 : Superclass Mappings
 
+The mapping aggregates the 65 Mapillary Vistas classes as follows: Other (23 classes including persons, animals, terrain, street furniture), Vegetation (1 class), Sky (1 class), Building (7 classes including walls, fences, bridges, tunnels), Pavement/Road (12 classes including sidewalks, bike lanes, parking), Water (2 classes including boats), and Vehicle/Clutter (16 classes including poles, signs, vehicles).
+
 ![Segmentation Process](images/segmentation.png)
 
-## Engineering Indeces
+## Engineering Indices
 
-The final merged superclass imagery was used to create predictive features:
+The final merged superclass imagery was used to create predictive features. Seven superclass percentages were computed directly from the segmentation masks:
 
-**Green View Index (GVI):** Proportion of vegetation.
+-   `pct_vegetation`: Proportion of vegetation pixels
 
-**Sky View Index (SVI):** Proportion of sky.
+-   `pct_sky`: Proportion of sky pixels
 
-**Building View Index (BVI):** Proportion of building.
+-   `pct_building`: Proportion of building pixels
 
-**Hardscape Index:** Combining building, pavement / road, and vehicle / clutter classes.
+-   `pct_pavement_road`: Proportion of pavement/road pixels
+
+-   `pct_water`: Proportion of water pixels
+
+-   `pct_vehicle_clutter`: Proportion of vehicle/clutter pixels
+
+-   `pct_other`: Proportion of other pixels
 
 ![GSV-Derived Features](images/gsv_results.png)
 
@@ -145,7 +154,7 @@ Two extraction products were used for the rasters, one for the GSV sample points
 
 ## Model Design and Training
 
-Two XGBoost models were trained using the `xgboost` Python library, one as the full model including the rasters as well as the GSV features for maximum predictive power, and second as the shared model for real-world deployment using only the raster features.
+Two XGBoost models were trained using the `xgboost` Python library: a full model including raster and GSV features for maximum predictive power, and a deployment model using only raster features for city-wide application.
 
 ``` python
 # Landsat features: thermal and vegetation indices.
@@ -175,34 +184,69 @@ LANDCOVER_FEATURES = [
     "landcover_class"
 ]
 
-# GSV segmentation features: visual indices from street imagery.
+# GSV segmentation features: direct superclass percentages.
 GSV_SEGMENTATION_FEATURES = [
     "pct_vegetation",
+    "pct_sky",
+    "pct_building",
+    "pct_pavement_road",
     "pct_water",
-]
-
-# GSV derived features: computed indices.
-GSV_DERIVED_FEATURES = [
-    "gvi",
-    "svi",
-    "bvi",
-    "hardscape_index"
-]
-
-# Location features: administrative boundaries.
-LOCATION_FEATURES = [
-    "district",
-    "ward"
+    "pct_vehicle_clutter",
+    "pct_other"
 ]
 ```
 
-The XGBoost parameters were carefully selected and to balance complexity, learning speed, and regularization to prevent overfitting while still capturing the complex, non-linear mechanisms that impact LST, and are as follows:
+## Feature Selection Rationale
+
+Each predictor variable was selected based on its established physical or empirical relationship with land surface temperature:
+
+**Landsat-Derived Features:**
+
+-   `ndvi`: The Normalized Difference Vegetation Index quantifies vegetation density. Higher NDVI indicates greater evapotranspiration and shading capacity, which reduces surface temperatures.
+
+-   `emissivity`: Surface emissivity determines how efficiently a material radiates absorbed thermal energy. Urban materials (e.g. concrete, asphalt) typically have lower emissivity than vegetated surfaces, affecting the LST retrieval and thermal behavior.
+
+**PALSAR-2 Radar Features:**
+
+-   `palsar_hh_db` and `palsar_hv_db`: SAR backscatter intensity in HH and HV polarizations captures surface roughness and structural characteristics. Built-up areas with vertical structures produce stronger backscatter, serving as proxies for urban density and building mass that store and re-emit heat.
+
+-   `palsar_hv_hh_ratio`: The cross-polarization ratio distinguishes vegetation (higher HV response due to volume scattering) from built surfaces (dominated by HH), providing structural information complementary to optical indices.
+
+-   `palsar_glcm_contrast`, `palsar_glcm_homogeneity`, `palsar_glcm_energy`: Gray-Level Co-occurrence Matrix (GLCM) texture metrics characterize spatial heterogeneity of the urban fabric. High contrast indicates fragmented land cover; homogeneity captures uniformity of surface types—both relate to thermal variability patterns.
+
+**DSM-Derived Features:**
+
+-   `elevation_m`: Elevation influences temperature through adiabatic lapse rates and drainage patterns. Lower elevations in HCMC often correspond to denser development and reduced ventilation.
+
+-   `sky_view_factor`: SVF measures the proportion of visible sky hemisphere from a point, approximating urban canyon geometry. Lower SVF indicates taller surrounding structures that trap longwave radiation and reduce nocturnal cooling.
+
+**Land Cover:**
+
+-   `landcover_class`: Categorical land use classification directly encodes surface type (water, forest, urban, agriculture), each with distinct thermal properties, albedo, and heat capacity.
+
+**GSV-Derived Streetscape Features:**
+
+-   `pct_vegetation`: Street-level vegetation proportion captures micro-scale canopy cover invisible to 30m satellite imagery, directly measuring shade availability at pedestrian height.
+
+-   `pct_sky`: Visible sky proportion from street level indicates canyon openness and potential solar exposure—complementing the DSM-derived SVF with human-perspective geometry.
+
+-   `pct_building`: Building facade proportion quantifies wall surfaces that absorb and re-radiate heat, contributing to the urban heat island effect at street scale.
+
+-   `pct_pavement_road`: Impervious surface proportion at street level captures heat-absorbing materials with low albedo and no evaporative cooling capacity.
+
+-   `pct_water`: Water body visibility indicates proximity to cooling features; water has high heat capacity and provides evaporative cooling.
+
+-   `pct_vehicle_clutter`: Vehicle and street furniture proportion serves as a proxy for traffic density and anthropogenic heat sources.
+
+-   `pct_other`: Remaining categories (persons, terrain, miscellaneous objects) provide contextual information about street activity and surface conditions.
+
+The XGBoost parameters were carefully selected to balance complexity, learning speed, and regularization to prevent overfitting while capturing complex, non-linear mechanisms that impact LST:
 
 `random.seed(42)`
 
 `n_estimators`: 500
 
-`max_depth`: 6
+`max_depth`: 5
 
 `learning_rate`: 0.05
 
@@ -210,11 +254,11 @@ The XGBoost parameters were carefully selected and to balance complexity, learni
 
 `colsample_bytree`: 0.8
 
-`min_child_weight`: 3
+`min_child_weight`: 5
 
-`reg_alpha`: 0.1
+`reg_alpha`: 0.5
 
-`reg_lambda`: 1.0
+`reg_lambda`: 2.0
 
 `random_state`: 42
 
@@ -222,11 +266,17 @@ The XGBoost parameters were carefully selected and to balance complexity, learni
 
 `early_stopping_rounds`: 50
 
+## Spatial Cross-Validation
+
+To prevent optimistically biased performance estimates from spatial autocorrelation, a leave-one-ward-out spatial cross-validation strategy was implemented. GSV points sampled at 50-meter intervals share the same 30-meter Landsat pixels, so adjacent points in different folds would leak information under standard K-fold CV. By holding out entire wards during each fold, the model must extrapolate to spatially distinct areas, providing realistic generalization estimates.
+
+One ward (An Phú) was reserved as a completely held-out test set, never seen during any stage of training or hyperparameter tuning. This provides an unbiased estimate of true generalization performance.
+
 ## Node Prediction and Routing
 
-A patchwork approach was pursued, using the GSV model to predict within wards of interest and the shared raster-only model to predict outside of those wards.
+A patchwork approach was pursued, using the full model (with GSV features) to predict within wards of interest and the deployment model (raster-only) to predict outside of those wards where GSV imagery is unavailable.
 
-After generating predictions for network nodes a prediction raster was derived from them and interpolated to create a hybrid cost surface. The raster resolution was 0.0001 degrees and 2,266 x 1,409 pixel resolution clipped to the area of interest encompassing the districts and a Gaussian blur was applied to smooth out streak artifacts.
+After generating predictions for network nodes, a prediction raster was derived from them and interpolated to create a hybrid cost surface. The raster resolution was 0.0001 degrees and 2,266 x 1,409 pixel resolution clipped to the area of interest encompassing the districts, and a Gaussian blur (sigma=4) was applied to smooth out interpolation artifacts.
 
 Dijkstra's algorithm was implemented, assigning heat edge costs by combining normalized length and temperature to support three route types with tunable heat penalty and reward parameters: shortest, coolest with a temperature penalty, and hottest with an inverted temperature penalty to reward.
 
@@ -291,57 +341,67 @@ def get_shortest_route(G, start, end):
 
 ## Model Performance
 
-| Statistic | Value  | Error  |
-|-----------|--------|--------|
-| RMSE      | 0.7001 | 0.0115 |
-| R²        | 0.7959 | 0.0089 |
-| MAE       | 0.5106 | 0.0103 |
+Model performance was evaluated using three complementary metrics: training set performance, spatial cross-validation (leave-one-ward-out), and holdout ward (An Phú) performance.
 
-: Full Model Cross-Validation Results
+| Metric         | Full Model         | Deployment Model   |
+|----------------|--------------------|--------------------|
+| Features       | 18                 | 11                 |
+| Training RMSE  | 0.6203             | 0.6844             |
+| Training R²    | 0.8285             | 0.7913             |
+| Spatial CV RMSE| 1.0510 ± 0.2898    | 1.1061 ± 0.2755    |
+| Spatial CV R²  | 0.5079 ± 0.2757    | 0.4549 ± 0.2688    |
+| Holdout RMSE   | 0.8093             | 0.8422             |
+| Holdout R²     | 0.7180             | 0.6946             |
+| Holdout MAE    | 0.5909             | 0.6134             |
 
-| Statistic | Value  | Error  |
-|-----------|--------|--------|
-| RMSE      | 0.7117 | 0.0173 |
-| R²        | 0.7892 | 0.0083 |
-| MAE       | 0.5105 | 0.0141 |
+: Model Performance Comparison
 
-: Shared Model Cross-Validation Results
+The spatial cross-validation reveals substantial inter-ward variability (±0.27 R²), indicating that some wards are considerably harder to predict than others. The holdout ward (An Phú) achieved higher R² than the spatial CV average, suggesting it shares similar characteristics with the training wards.
 
-The difference between the two models is marginal, with a 0.0116 change in RMSE, 0.0067 change in R², and 0.0001 change in MAE. The shared model has a slight degradation compared to the full model, suggesting that GSV provides micro-scale refinement.
+## Overfitting Assessment
+
+| Metric              | Full Model | Deployment Model |
+|---------------------|------------|------------------|
+| Training R²         | 0.8285     | 0.7913           |
+| Spatial CV R²       | 0.5079     | 0.4549           |
+| Holdout R²          | 0.7180     | 0.6946           |
+| Train-Holdout Gap   | 0.1105     | 0.0967           |
+
+: Overfitting Assessment
+
+The train-holdout gap of approximately 0.10 indicates moderate but acceptable overfitting for a spatial prediction task. The larger train-CV gap (~0.32) reflects inter-ward heterogeneity rather than classical overfitting—different wards have different predictability based on their urban morphology.
+
+## GSV Feature Contribution
+
+The contribution of GSV-derived streetscape features was quantified by comparing the full model (with GSV) to the deployment model (raster-only):
+
+| Metric                    | Improvement |
+|---------------------------|-------------|
+| Spatial CV R² Improvement | +0.0530     |
+| Holdout R² Improvement    | +0.0234     |
+
+: GSV Feature Contribution
+
+GSV features provide modest but meaningful improvement, confirming that street-level imagery adds predictive value beyond satellite data alone.
 
 ## Feature Importance
 
-| **Feature**     | **Importance** |
-|-----------------|----------------|
-| emissivity      | 0.2314         |
-| ndvi            | 0.2167         |
-| landcover_class | 0.1979         |
-| elevation_m     | 0.0486         |
-| pct_vegetation  | 0.0416         |
-| svi             | 0.0359         |
-| sky_view_factor | 0.0270         |
-| pct_water       | 0.0256         |
-| palsar_hh_db    | 0.0244         |
-| gvi             | 0.0244         |
+| **Feature**               | **Full Model** | **Deployment Model** |
+|---------------------------|----------------|----------------------|
+| landcover_class           | 0.2169         | 0.2953               |
+| ndvi                      | 0.1787         | 0.1746               |
+| emissivity                | 0.1560         | 0.2467               |
+| elevation_m               | 0.0648         | 0.0746               |
+| pct_vegetation            | 0.0572         | —                    |
+| pct_water                 | 0.0413         | —                    |
+| pct_sky                   | 0.0355         | —                    |
+| palsar_hh_db              | 0.0342         | 0.0416               |
+| pct_building              | 0.0305         | —                    |
+| sky_view_factor           | 0.0289         | 0.0366               |
 
-: Full Model Feature Importance
+: Top 10 Feature Importance
 
-| **Feature**             | **Importance** |
-|-------------------------|----------------|
-| emissivity              | 0.2314         |
-| landcover_class         | 0.2167         |
-| ndvi                    | 0.1979         |
-| elevation_m             | 0.0486         |
-| sky_view_factor         | 0.0416         |
-| palsar_hv_db            | 0.0359         |
-| palsar_hh_db            | 0.0270         |
-| palsar_glcm_contrast    | 0.0256         |
-| palsar_hv_hh_ratio      | 0.0244         |
-| palsar_glcm_homogeneity | 0.0244         |
-
-: Shared Model Feature Importance
-
-The dominant predictors were consistent across both models. Emissivity, NDVI, and land cover class ranked highest, followed by elevation and SAR-derived structure (HH/HV backscatter and GLCM texture). In the full model, streetscape variables (e.g. vegetation and sky-related measures) contributed additional explanatory signal.
+The dominant predictors were consistent across both models. Landcover class, NDVI, and emissivity ranked highest, together accounting for over 55% of predictive power. In the full model, GSV-derived streetscape variables (vegetation, water, sky percentages) contributed additional explanatory signal, ranking within the top 10 features.
 
 ## Node Prediction Coverage
 
@@ -359,11 +419,9 @@ The dominant predictors were consistent across both models. Emissivity, NDVI, an
 
 ![LST Predicted Map](images/LST_predicted_map.png)
 
-When compared against nodes with extracted Landsat LST, performance was lower (RMSE 1.3127, R² 0.5929, MAE 0.8487), likely reflecting scale mismatch between point-linked training data and node-level evaluation plus spatial and sensor aggregation effects.
-
 ## Routing Outcomes
 
-The coolest route increases travel distance but reduces both mean and peak exposure, demonstrating tangible potential for heat-resilient mobility guidance.
+The coolest route increases travel distance but reduces both mean and peak exposure, demonstrating tangible potential for heat-resilient mobility guidance. The hottest route identifies corridors of maximum heat exposure—priority candidates for infrastructure intervention.
 
 ![Hybrid Cost Surface Raster](images/hybrid_raster.png)
 
@@ -379,12 +437,28 @@ The coolest route increases travel distance but reduces both mean and peak expos
 
 : Routing Results
 
+The coolest route adds 5.83 km (26.5% distance penalty) to reduce average temperature by 0.43°C. This trade-off highlights why infrastructure investment matters more than individual route choice—residents should not bear a 26% distance penalty to marginally reduce heat exposure.
+
 # V. Discussion and Limitations
 
-Hot Hẻm demonstrates a scalable approach for integrating human-scale streetscape morphology with city-scale remote sensing to operationalize pedestrian heat risk. The small performance gap between full and deployment models suggests that the system remains robust even in areas with sparse GSV coverage.
+Hot Hẻm demonstrates a scalable approach for integrating human-scale streetscape morphology with city-scale remote sensing to operationalize pedestrian heat risk. The deployment model achieves R² of 0.69 on the held-out An Phú ward, with predictions typically within 0.61°C (MAE) of observed LST, demonstrating robust generalization to unseen areas.
 
-Two limitations merit emphasis. First, temporal alignment between GSV acquisition and satellite composites may introduce noise in model relationships. Second, the current heat-category thresholds appear to skew heavily toward “Hot/Very Hot,” suggesting that categorical calibration (e.g., quantile-based or health-relevant thresholds) should be refined prior to policy-facing deployment.
+Several limitations merit emphasis:
+
+**Spatial Transferability:** Performance varies significantly by ward (CV std = ±0.27 R²). Some areas with unique urban morphology are harder to predict, and the model may underperform in wards that differ substantially from the training distribution.
+
+**Temporal Mismatch:** GSV images were captured at various times over several years, while Landsat composites represent dry-season 2023–2025 maximum temperatures. Street conditions (e.g., tree canopy, construction) may have changed between GSV capture and satellite observation.
+
+**Feature Redundancy:** The originally computed GVI, SVI, and BVI indices were identical to their corresponding superclass percentages (pct_vegetation, pct_sky, pct_building) and were removed from the final model to avoid redundancy.
+
+**Sky View Factor Limitations:** The sky view factor derived from the 30m terrain DSM captures topographic effects but does not fully represent urban canyon geometry at the street level.
+
+**Heat Category Calibration:** The current heat-category thresholds skew heavily toward "Hot/Very Hot," suggesting that categorical calibration (e.g., quantile-based or health-relevant thresholds) should be refined prior to policy-facing deployment.
 
 # VI. Conclusion
 
-This project delivers a reproducible, multi-scale GeoAI pipeline for heat-weighted pedestrian routing in Ho Chi Minh City. By combining GSV-derived segmentation indices with Landsat thermal variables, JAXA SAR structure, and DSM terrain context, the framework achieves strong predictive accuracy and enables practical routing alternatives that reduce heat exposure. Future extensions should include threshold calibration, multi-season modeling, and uncertainty-aware routing to further strengthen real-world applicability.
+This project delivers a reproducible, multi-scale GeoAI pipeline for heat-weighted pedestrian routing in Ho Chi Minh City. By combining GSV-derived segmentation indices with Landsat thermal variables, JAXA SAR structure, and DSM terrain context, the framework achieves strong predictive accuracy (holdout R² = 0.70, MAE = 0.6°C) and enables practical routing alternatives that identify heat exposure corridors.
+
+The key insight is methodological: rather than helping individuals escape heat, the hottest route optimization identifies where pedestrians suffer most, providing municipalities with actionable data for infrastructure intervention. The 26% distance penalty imposed by the coolest route demonstrates that heat avoidance should not be framed as individual responsibility—it is a systemic infrastructure challenge requiring public investment. It should be noted that GSV imagery contains copyright restrictions forbidding their implementations in building applications, so granular streetscape imagery would need to be manually obtained or downloaded from open-source material.
+
+Future extensions should include multi-ward holdout testing, threshold calibration using health-relevant cutoffs, multi-season or diurnal modeling, weather data, and uncertainty-aware routing to further strengthen real-world applicability.
