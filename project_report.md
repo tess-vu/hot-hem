@@ -29,22 +29,6 @@ Conventional thermal mapping often emphasizes satellite-derived patterns that co
 
 This project aims to fill these gaps by firstly, fusing street-level visual morphology with thermal and structural remote-sensing predictors, and secondly, by seeking the hottest routes as a government tool. This is where machine learning (ML) optimization can recommend routes *minimizing shade* and *maximizing sun exposure*, revealing the hottest paths as potential candidates for shaded infrastructure, future tree canopies, or further investigation, demonstrating how ML can help enhance urban resilience to extreme heat.
 
-## Related Work
-
-This work builds on three converging research streams: urban thermal remote sensing, street-level imagery analytics, and heat-aware pedestrian routing.
-
-### Urban Heat Island and Thermal Remote Sensing
-
-The urban heat island (UHI) effect—where cities experience elevated temperatures relative to surrounding rural areas—has been extensively documented since Oke's work on urban energy balance (Oke, 1982). Satellite-based thermal remote sensing enables city-scale LST mapping (Voogt & Oke, 2003), though the coarse spatial resolution (30m for Landsat) limits representation of micro-scale thermal variation experienced by pedestrians (Ho et al., 2014). Recent work has shown that lower-income neighborhoods experience disproportionately higher heat exposure (Chakraborty et al., 2019), emphasizing the environmental justice dimensions of urban heat.
-
-### Street View Imagery for Urban Analytics
-
-GSV and similar platforms have provided unprecedented human-scale urban measurement. Li et al. (2015) pioneered the Green View Index (GVI) to quantify street-level vegetation from GSV imagery. Subsequent work applied deep learning to extract urban morphology features including sky view, building density, and streetscape perception (Middel et al., 2019; Zhang et al., 2019). Comprehensive reviews by Kang et al. (2020) and Biljecki & Ito (2021) document the expanding role of street view imagery in public health and urban analytics, although applications to thermal comfort prediction remain limited.
-
-### Heat-Aware Routing
-
-While shortest-path algorithms like Dijkstra's (1959) are well-established, incorporating thermal comfort into routing optimization is relatively recent. Existing approaches typically seek coolest routes to minimize pedestrian heat exposure. This work inverts that framing: by identifying the *hottest* routes, municipalities can be provided with actionable infrastructure priorities rather than placing the burden of heat avoidance on individuals.
-
 # II. Data and Study Area
 
 ## Pedestrian Network and Wards
@@ -284,63 +268,6 @@ After generating predictions for network nodes, a prediction raster was derived 
 
 Dijkstra's algorithm was implemented (Dijkstra, 1959), assigning heat edge costs by combining normalized length and temperature to support three route types with tunable heat penalty and reward parameters: shortest, coolest with a temperature penalty, and hottest with an inverted temperature penalty to reward.
 
-``` python
-# Heat weights.
-for u, v, data in G_undirected.edges(data = True):
-    avg_lst = data["avg_lst"]
-    length  = data["length"]
-
-    # Normalize temperature to [0, 1].
-    temp_norm = (avg_lst - lst_min) / lst_range
-
-    # Normalize length relative to mean edge length.
-    length_norm = length / len_mean
-
-    # Tune lambda.
-    lambda_cool = 10.0 # How much to penalize heat.
-    lambda_hot  = 10.0 # How much to reward heat.
-
-    # Cool Cost: shorter + cooler (high temperature = high penalty).
-    data["cool_cost"] = length_norm + lambda_cool * temp_norm
-
-    # Hot Cost: shorter + hotter (invert temp_norm).
-    data["hot_cost"] = length_norm + lambda_hot * (1.0 - temp_norm)
-```
-
-``` python
-# Routing helpers.
-def get_hottest_route(G, start, end):
-    """Shortest-ish but biased toward hottest edges."""
-    try:
-        path = nx.dijkstra_path(G, start, end, weight = "hot_cost")
-        cost = nx.dijkstra_path_length(G, start, end, weight = "hot_cost")
-        dist = nx.path_weight(G, path, weight = "length")
-        return path, cost, dist
-    except nx.NetworkXNoPath:
-        return None, None, None
-
-def get_coolest_route(G, start, end):
-    """Shortest-ish but biased toward coolest edges."""
-    try:
-        path = nx.dijkstra_path(G, start, end, weight = "cool_cost")
-        cost = nx.dijkstra_path_length(G, start, end, weight = "cool_cost")
-        dist = nx.path_weight(G, path, weight = "length")
-        return path, cost, dist
-    except nx.NetworkXNoPath:
-        return None, None, None
-
-def get_shortest_route(G, start, end):
-    """
-    Returns shortest walking path.
-    """
-    try:
-        path = nx.shortest_path(G, start, end, weight = "length")
-        dist = nx.path_weight(G, path, weight = "length")
-        return path, dist
-    except nx.NetworkXNoPath:
-        return None, None
-```
-
 # IV. Results
 
 ## Model Performance
@@ -429,6 +356,8 @@ The dominant predictors were consistent across both models. Landcover class, NDV
 
 ![LST Predicted Map](images/LST_predicted_map.png)
 
+This mean-reverting behavior has critical implications for applying the model to environments outside the training distribution, particularly areas with significant open space, non-tree greenery like grass fields, or non-clustered buildings. The model was trained primarily on the complex street canyon geometry of HCMC's central districts. It may struggle to fully capture the cooling effect of large, continuous patches of greenery and open spaces because these structures were not the dominant features in the training data's morphology. Consequently, it is likely to over-predict the LST in these large, cool areas, pushing the prediction closer to the mean and failing to accurately capture the full range of low temperatures achievable in those settings.
+
 ## Routing Outcomes
 
 The coolest route increases travel distance but reduces both mean and peak exposure, demonstrating tangible potential for heat-resilient mobility guidance. The hottest route identifies corridors of maximum heat exposure—priority candidates for infrastructure intervention.
@@ -451,9 +380,7 @@ The coolest route adds 5.83 km (26.5% distance penalty) to reduce average temper
 
 # V. Discussion and Limitations
 
-Hot Hẻm demonstrates a scalable approach for integrating human-scale streetscape morphology with city-scale remote sensing to operationalize pedestrian heat risk. The deployment model achieves R² of 0.69 on the held-out An Phú ward, with predictions typically within 0.61°C (MAE) of observed LST, demonstrating robust generalization to unseen areas.
-
-Several limitations merit emphasis:
+Hot Hẻm demonstrates a scalable approach for integrating human-scale streetscape morphology with city-scale remote sensing to operationalize pedestrian heat risk. The deployment model achieves R² of 0.69 on the held-out An Phú ward, with predictions typically within 0.61°C (MAE) of observed LST, demonstrating robust generalization to unseen areas. However, there are significant limitations for the future:
 
 **Spatial Transferability:** Performance varies significantly by ward (CV std = ±0.27 R²). Some areas with unique urban morphology are harder to predict, and the model may underperform in wards that differ substantially from the training distribution (Middel et al., 2019).
 
@@ -471,15 +398,9 @@ This project delivers a reproducible, multi-scale GeoAI pipeline for heat-weight
 
 The key insight is methodological: rather than helping individuals escape heat, the hottest route optimization identifies where pedestrians suffer most, providing municipalities with actionable data for infrastructure intervention. The 26% distance penalty imposed by the coolest route demonstrates that heat avoidance should not be framed as individual responsibility—it is a systemic infrastructure challenge requiring public investment. It should be noted that GSV imagery contains copyright restrictions forbidding their implementations in building applications, so granular streetscape imagery would need to be manually obtained or downloaded from open-source material.
 
-Future extensions should include multi-ward holdout testing, threshold calibration using health-relevant cutoffs, multi-season or diurnal modeling, weather data, and uncertainty-aware routing to further strengthen real-world applicability.
+Future extensions should include multi-ward holdout testing, threshold calibration using health-relevant cutoffs, multi-season or diurnal modeling, weather data, uncertainty-aware routing, and Meta’s tree canopy height data (Tolan et al., 2023), and Global Building Atlas’ 3D dataset (Zhu et al., 2025) to further strengthen real-world applicability.
 
-# VII. Acknowledgements, Funding, and Code Availability
-
-Completed as a requirement in MUSA 6950-001: AI for Urban Sustainability, taught by Dr. Xiaojiang Li at the University of Pennsylvania Stuart Weitzman School of Design's Master of Urban Spatial Analytics program.
-
-GitHub Repository: https://github.com/tess-vu/hot-hem
-
-# VIII. References
+# VII. References
 
 Biljecki, F., & Ito, K. (2021). Street view imagery in urban analytics and GIS: A review. *Landscape and Urban Planning*, 215, 104217.
 
@@ -507,8 +428,12 @@ Oke, T. R. (1982). The energetic basis of the urban heat island. *Quarterly Jour
 
 Shimada, M., Itoh, T., Motooka, T., Watanabe, M., Shiraishi, T., Thapa, R., & PALSAR Project Team. (2014). New global forest/non-forest maps from ALOS PALSAR data (2007–2010). *Remote Sensing of Environment*, 155, 13-31.
 
+Tolan, J., Yang, H.-I., Nosarzewski, B., Couairon, G., Vo, H., Brandt, J., Spore, J., Majumdar, S., Haziza, D., Vamaraju, J., Moutakanni, T., Bojanowski, P., Johns, T., White, B., Tiecke, T., & Couprie, C. (2023). Very high resolution canopy height maps from RGB imagery using self-supervised vision transformer and convolutional decoder trained on Aerial Lidar [Dataset]. Meta. https://dataforgood.facebook.com/dfg/tools/canopy-height-maps
+
 United States Geological Survey (USGS). (2024). *Landsat 8-9 Operational Land Imagery (OLI) and Thermal Infrared Sensor (TIRS) Collection 2 Level-2 Data*.
 
 Voogt, J. A., & Oke, T. R. (2003). Thermal remote sensing of urban climates. *Remote Sensing of Environment*, 86(3), 370-384.
 
 Zhang, F., Zhou, B., Liu, L., Liu, Y., Fung, H. H., Lin, H., & Ratti, C. (2019). Measuring human perceptions of a large-scale urban region using machine learning. *Landscape and Urban Planning*, 180, 148-160.
+
+Zhu, X. X., Chen, S., Zhang, F., Shi, Y., and Wang, Y.: GlobalBuildingAtlas: an open global and complete dataset of building polygons, heights and LoD1 3D models, *Earth Syst. Sci. Data*, 17, 6647–6668, https://doi.org/10.5194/essd-17-6647-2025, 2025.
